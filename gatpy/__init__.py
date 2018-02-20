@@ -2,7 +2,7 @@ import csv
 
 
 class excel_semicolon(csv.excel):
-    delimiter = ';'
+    delimiter = ','
     lineterminator = '\n'
 
 
