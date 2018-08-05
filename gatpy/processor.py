@@ -68,11 +68,13 @@ class Processor:
             row = ['']
             for mode in self.modes:
                 row.extend(['%s aantal' % mode, '%s omzet' % mode])
+            row.extend(['','groep totaal'])
             writer.writerow(row)
 
             totalAmount = 0
             totalPrice = 0
-            for group in self.products.groups():
+            for group in self.products.groups():	
+                totalGroupPrice = 0
                 row = [group.capitalize()]
                 for mode in self.modes:
                     amount, price = self.getAllInGroup(group, mode)
@@ -80,6 +82,9 @@ class Processor:
                     if mode == 'cash' or mode == 'pin':
                         totalAmount += amount
                         totalPrice += price
+                        totalGroupPrice += price 
+                row.extend([''])
+                row.extend([locale.currency(totalGroupPrice)])
                 writer.writerow(row)
             writer.writerow([])
             writer.writerow(['Totaal', totalAmount, locale.currency(totalPrice)])
